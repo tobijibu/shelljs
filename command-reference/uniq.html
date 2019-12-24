@@ -1,15 +1,147 @@
-<!DOCTYPE html><html lang="ja"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width"><title>uniq() | ShellJS - にほんご。</title><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta property="og:title" content="uniq() | ShellJS - にほんご。"><meta property="og:url"><meta property="og:type" content="article"><link rel="icon" href="https://tr.you84815.space/shelljs/favicon.ico"><link rel="stylesheet" href="../css/main.css"><script>(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
-
-ga('create', 'UA-106478577-1', 'auto');</script></head><body><div id="container"><header><div class="icon"><a class="no-barba" href="https://tr.you84815.space/"><svg width="16" height="16"><rect width="16" height="16" fill="#e0e0e0"></rect></svg></a></div><div class="navi_toggle" onclick="toggleMenu()"><svg id="menu_close" width="24" height="24" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path><path d="M0 0h24v24H0z" fill="none"></path></svg><svg id="menu_open" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"></path><path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path></svg></div><div class="title">ShellJS - <a class="no-barba" href="https://tr.you84815.space/">にほんご。</a></div></header><div class="navi" id="navi"><ul class="menu"><li><a class="index" href="../index.html">Home</a></li><li><a class="introduction" href="../introduction.html">Introduction</a></li><li><a class="commaindline" href="../commandline.html">Command line use</a></li><li><a class="plugin-api" href="../plugin-api.html">Plugin API</a></li><li><a class="note-docs" href="../note-docs.html">A quick note about the docs</a></li><li><a class="installing" href="../installing.html">Installing</a></li><li><a class="examples" href="../examples.html">Examples</a></li><li><a class="exclude-options" href="../exclude-options.html">Exclude options</a></li><li><a class="global-vs-local" href="../global-vs-local.html">Global vs. Local</a></li><li><a class="commandReference" href="../command-reference.html">Command reference</a><ul id="navi_commandReference"><li><a href="../command-reference/cat.html">cat()</a></li><li><a href="../command-reference/cd.html">cd()</a></li><li><a href="../command-reference/chmod.html">chmod()</a></li><li><a href="../command-reference/cp.html">cp()</a></li><li><a href="../command-reference/pushd.html">pushd()</a></li><li><a href="../command-reference/popd.html">popd()</a></li><li><a href="../command-reference/dirs.html">dirs()</a></li><li><a href="../command-reference/echo.html">echo()</a></li><li><a href="../command-reference/exec.html">exec()</a></li><li><a href="../command-reference/find.html">find()</a></li><li><a href="../command-reference/grep.html">grep()</a></li><li><a href="../command-reference/head.html">head()</a></li><li><a href="../command-reference/ln.html">ln()</a></li><li><a href="../command-reference/ls.html">ls()</a></li><li><a href="../command-reference/mkdir.html">mkdir()</a></li><li><a href="../command-reference/mv.html">mv()</a></li><li><a href="../command-reference/pwd.html">pwd()</a></li><li><a href="../command-reference/rm.html">rm()</a></li><li><a href="../command-reference/sed.html">sed()</a></li><li><a href="../command-reference/set.html">set()</a></li><li><a href="../command-reference/sort.html">sort()</a></li><li><a href="../command-reference/tail.html">tail()</a></li><li><a href="../command-reference/tempdir.html">tempdir()</a></li><li><a href="../command-reference/test.html">test()</a></li><li><a href="../command-reference/to.html">ShellString.prototype.to()</a></li><li><a href="../command-reference/toEnd.html">ShellString.prototype.toEnd()</a></li><li><a href="../command-reference/touch.html">touch()</a></li><li><a class="active" href="../command-reference/uniq.html">uniq()</a></li><li><a href="../command-reference/which.html">which()</a></li><li><a href="../command-reference/exit.html">exit()</a></li><li><a href="../command-reference/error.html">error()</a></li><li><a href="../command-reference/ShellString.html">ShellString()</a></li><li><a href="../command-reference/env.html">env[]</a></li><li><a href="../command-reference/Pipes.html">Pipes</a></li></ul></li><li><a class="config" href="../config.html">Config</a><ul class="hidden" id="navi_config"><li><a href="../config.html#silent">config.silent</a></li><li><a href="../config.html#fatal">config.fatal</a></li><li><a href="../config.html#verbose">config.verbose</a></li><li><a href="../config.html#globOptions">config.globOptions</a></li><li><a href="../config.html#reset">config.reset()</a></li></ul></li><li>Team<ul id="navi_team"><li><a class="external-link" href="https://github.com/nfischer" target="_blank">Nate Fischer</a></li><li><a class="external-link" href="https://github.com/freitagbr" target="_blank">Brandon Freitag</a></li></ul></li></ul></div><div id="content"><div id="main"><div id="barba-wrapper"><div class="barba-container"><h1>uniq()</h1><div id="update_date"><span>更新日: 2018.09.11
-</span></div><h2 class="cmd-title">uniq([options,] [input, [output]])</h2><h3>利用可能オプション</h3><dl><dt><code>-i</code></dt><dd>大文字小文字を区別しません。</dd><dt><code>-c</code></dt><dd>出現回数を行頭に表示します。</dd><dt><code>-d</code></dt><dd>重複した行のみを表示します。
-複数行ある場合は、1行にまとめて表示します。</dd></dl><h3>指定方法</h3><pre><code>uniq(<span class="hljs-string">'foo.txt'</span>);
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>uniq() | ShellJS - にほんご。</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta property="og:title" content="uniq() | ShellJS - にほんご。">
+    <meta property="og:url">
+    <meta property="og:type" content="article">
+    <link rel="icon" href="https://tr.you84815.space/shelljs/favicon.ico">
+    <link rel="stylesheet" type="text/css" href="../css/main.css">
+    <link id="theme_style" rel="stylesheet" type="text/css" href="">
+    <script id="srcTheme" src="../js/toggleTheme.js" data-dir="shelljs"></script>
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+      ga('create', 'UA-106478577-1', 'auto');
+    </script>
+  </head>
+  <body>
+    <div id="container">
+      <header>
+        <div class="icon"><a class="no-barba" href="https://tr.you84815.space/">
+            <svg width="16" height="16">
+              <rect width="16" height="16" fill="#e0e0e0"></rect>
+            </svg></a></div>
+        <div class="navi_toggle" onclick="toggleMenu()">
+          <svg id="menu_close" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+            <path d="M0 0h24v24H0z" fill="none"></path>
+          </svg>
+          <svg id="menu_open" width="24" height="24" viewBox="0 0 24 24">
+            <path d="M0 0h24v24H0z" fill="none"></path>
+            <path d="M3 18h18v-2H3v2zm0-5h18v-2H3v2zm0-7v2h18V6H3z"></path>
+          </svg>
+        </div>
+        <div class="title">ShellJS - <a class="no-barba" href="https://tr.you84815.space/">にほんご。</a></div><span id="toggleTheme">
+          <svg role="img" width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+            <path d="M8 256c0 136.966 111.033 248 248 248s248-111.034 248-248S392.966 8 256 8 8 119.033 8 256zm248 184V72c101.705 0 184 82.311 184 184 0 101.705-82.311 184-184 184z"></path>
+          </svg></span>
+      </header>
+      <div class="navi" id="navi">
+        <ul class="menu">
+          <li><a class="index" href="../index.html">Home</a></li>
+          <li><a class="introduction" href="../introduction.html">Introduction</a></li>
+          <li><a class="commaindline" href="../commandline.html">Command line use</a></li>
+          <li><a class="plugin-api" href="../plugin-api.html">Plugin API</a></li>
+          <li><a class="note-docs" href="../note-docs.html">A quick note about the docs</a></li>
+          <li><a class="installing" href="../installing.html">Installing</a></li>
+          <li><a class="examples" href="../examples.html">Examples</a></li>
+          <li><a class="exclude-options" href="../exclude-options.html">Exclude options</a></li>
+          <li><a class="global-vs-local" href="../global-vs-local.html">Global vs. Local</a></li>
+          <li><a class="commandReference" href="../command-reference.html">Command reference</a>
+            <ul id="navi_commandReference">
+              <li><a href="../command-reference/cat.html">cat()</a></li>
+              <li><a href="../command-reference/cd.html">cd()</a></li>
+              <li><a href="../command-reference/chmod.html">chmod()</a></li>
+              <li><a href="../command-reference/cp.html">cp()</a></li>
+              <li><a href="../command-reference/pushd.html">pushd()</a></li>
+              <li><a href="../command-reference/popd.html">popd()</a></li>
+              <li><a href="../command-reference/dirs.html">dirs()</a></li>
+              <li><a href="../command-reference/echo.html">echo()</a></li>
+              <li><a href="../command-reference/exec.html">exec()</a></li>
+              <li><a href="../command-reference/find.html">find()</a></li>
+              <li><a href="../command-reference/grep.html">grep()</a></li>
+              <li><a href="../command-reference/head.html">head()</a></li>
+              <li><a href="../command-reference/ln.html">ln()</a></li>
+              <li><a href="../command-reference/ls.html">ls()</a></li>
+              <li><a href="../command-reference/mkdir.html">mkdir()</a></li>
+              <li><a href="../command-reference/mv.html">mv()</a></li>
+              <li><a href="../command-reference/pwd.html">pwd()</a></li>
+              <li><a href="../command-reference/rm.html">rm()</a></li>
+              <li><a href="../command-reference/sed.html">sed()</a></li>
+              <li><a href="../command-reference/set.html">set()</a></li>
+              <li><a href="../command-reference/sort.html">sort()</a></li>
+              <li><a href="../command-reference/tail.html">tail()</a></li>
+              <li><a href="../command-reference/tempdir.html">tempdir()</a></li>
+              <li><a href="../command-reference/test.html">test()</a></li>
+              <li><a href="../command-reference/to.html">ShellString.prototype.to()</a></li>
+              <li><a href="../command-reference/toEnd.html">ShellString.prototype.toEnd()</a></li>
+              <li><a href="../command-reference/touch.html">touch()</a></li>
+              <li><a class="active" href="../command-reference/uniq.html">uniq()</a></li>
+              <li><a href="../command-reference/which.html">which()</a></li>
+              <li><a href="../command-reference/exit.html">exit()</a></li>
+              <li><a href="../command-reference/error.html">error()</a></li>
+              <li><a href="../command-reference/ShellString.html">ShellString()</a></li>
+              <li><a href="../command-reference/env.html">env[]</a></li>
+              <li><a href="../command-reference/Pipes.html">Pipes</a></li>
+            </ul>
+          </li>
+          <li><a class="config" href="../config.html">Config</a>
+            <ul class="hidden" id="navi_config">
+              <li><a href="../config.html#silent">config.silent</a></li>
+              <li><a href="../config.html#fatal">config.fatal</a></li>
+              <li><a href="../config.html#verbose">config.verbose</a></li>
+              <li><a href="../config.html#globOptions">config.globOptions</a></li>
+              <li><a href="../config.html#reset">config.reset()</a></li>
+            </ul>
+          </li>
+          <li>Team
+            <ul id="navi_team">
+              <li><a class="external-link" href="https://github.com/nfischer" target="_blank">Nate Fischer</a></li>
+              <li><a class="external-link" href="https://github.com/freitagbr" target="_blank">Brandon Freitag</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+      <div id="content">
+        <div id="main">
+          <div id="barba-wrapper">
+            <div class="barba-container">
+              <h1>uniq()</h1>
+              <div id="update_date"><span>更新日: 2018.09.11
+</span>
+              </div>
+              <h2 class="cmd-title">uniq([options,] [input, [output]])</h2>
+              <h3>利用可能オプション</h3>
+              <dl>
+                <dt><code>-i</code></dt>
+                <dd>大文字小文字を区別しません。</dd>
+                <dt><code>-c</code></dt>
+                <dd>出現回数を行頭に表示します。</dd>
+                <dt><code>-d</code></dt>
+                <dd>
+                  重複した行のみを表示します。
+                  複数行ある場合は、1行にまとめて表示します。
+                </dd>
+              </dl>
+              <h3>指定方法</h3>
+              <pre><code>uniq(<span class="hljs-string">'foo.txt'</span>);
 uniq(<span class="hljs-string">'-i'</span>, <span class="hljs-string">'foo.txt'</span>);
-uniq(<span class="hljs-string">'-cd'</span>, <span class="hljs-string">'foo.txt'</span>, <span class="hljs-string">'bar.txt'</span>);</code></pre><p><code>input</code>から連続で重複する行を除外します。</p><br><h3>使用例</h3><p>'shell1.txt'の重複行を削除して表示します。</p><h5>JavaScript</h5><pre><code><span class="hljs-keyword">var</span> sh = <span class="hljs-built_in">require</span>(<span class="hljs-string">'shelljs'</span>);
+uniq(<span class="hljs-string">'-cd'</span>, <span class="hljs-string">'foo.txt'</span>, <span class="hljs-string">'bar.txt'</span>);</code></pre>
+              <p><code>input</code>から連続で重複する行を除外します。</p><br>
+              <h3>使用例</h3>
+              <p>'shell1.txt'の重複行を削除して表示します。</p>
+              <h5>JavaScript</h5>
+              <pre><code><span class="hljs-keyword">var</span> sh = <span class="hljs-built_in">require</span>(<span class="hljs-string">'shelljs'</span>);
 sh.echo(sh.uniq(<span class="hljs-string">'-c'</span>, <span class="hljs-string">'./shell1.txt'</span>));
-</code></pre><h5>txt</h5><pre><code>aaaaa
+</code></pre>
+              <h5>txt</h5>
+              <pre><code>aaaaa
 bbbbb
 ccccc
 aaaaa
@@ -18,7 +150,9 @@ eeeee
 ccccc
 ccccc
 zzzzz
-</code></pre><h5>結果</h5><pre><code><span class="hljs-meta">$</span><span class="bash"> node sample.js</span>
+</code></pre>
+              <h5>結果</h5>
+              <pre><code><span class="hljs-meta">$</span><span class="bash"> node sample.js</span>
       1 aaaaa
       1 bbbbb
       1 ccccc
@@ -26,5 +160,24 @@ zzzzz
       1 ddddd
       1 eeeee
       2 ccccc
-      1 zzzzz</code></pre><br><br><div class="license"><p>&copy; 2012
- Artur Adib Released under the BSD License. See <a href="https://github.com/shelljs/shelljs/blob/master/LICENSE">LICENSE</a> file for details.</p><p>このコンテンツはArtur Adib(arturadib)による<a href="https://documentup.com/shelljs/shelljs">ShellJSドキュメント</a>を翻訳/改変したものです。</p></div></div></div></div></div><footer><span> &copy; <span id="copy_year">2017</span> tobijibu</span></footer></div><noscript id="deferred-styles"><link href="../css/lazy.css" rel="stylesheet"></noscript><script src="../js/main.js" defer></script><div id="src" hidden></div></body></html>
+      1 zzzzz</code></pre><br><br>
+              <div class="license">
+                <p>
+                  &copy; 2012
+                   Artur Adib Released under the BSD License. See <a href="https://github.com/shelljs/shelljs/blob/master/LICENSE">LICENSE</a> file for details.
+                </p>
+                <p>このコンテンツはArtur Adib(arturadib)による<a href="https://documentup.com/shelljs/shelljs">ShellJSドキュメント</a>を翻訳/改変したものです。</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <footer><span>&copy; <span id="copy_year">2017</span> tobijibu</span></footer>
+    </div>
+    <noscript id="deferred-styles">
+      <link href="../css/lazy.css" rel="stylesheet">
+    </noscript>
+    <script src="../js/main.js" defer></script>
+    <div id="src" hidden></div>
+  </body>
+</html>
